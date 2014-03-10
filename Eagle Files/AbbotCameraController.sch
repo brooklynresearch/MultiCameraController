@@ -17379,13 +17379,6 @@ Source: http://ww1.microchip.com/downloads/en/DeviceDoc/21952a.pdf</description>
 <wire x1="-2.54" y1="45.72" x2="-2.54" y2="43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="D2" class="0">
-<segment>
-<wire x1="269.24" y1="-73.66" x2="274.32" y2="-73.66" width="0.1524" layer="91"/>
-<label x="271.78" y="-73.66" size="1.778" layer="95"/>
-<pinref part="U14" gate="G$1" pin="PD2(INT0)"/>
-</segment>
-</net>
 <net name="+5V" class="0">
 <segment>
 <pinref part="R1" gate="G$1" pin="2"/>
@@ -18125,27 +18118,6 @@ Source: http://ww1.microchip.com/downloads/en/DeviceDoc/21952a.pdf</description>
 <wire x1="147.32" y1="-86.36" x2="147.32" y2="-88.9" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="D3" class="0">
-<segment>
-<wire x1="269.24" y1="-76.2" x2="274.32" y2="-76.2" width="0.1524" layer="91"/>
-<label x="271.78" y="-76.2" size="1.778" layer="95"/>
-<pinref part="U14" gate="G$1" pin="PD3(INT1)"/>
-</segment>
-</net>
-<net name="D4" class="0">
-<segment>
-<wire x1="269.24" y1="-78.74" x2="274.32" y2="-78.74" width="0.1524" layer="91"/>
-<label x="271.78" y="-78.74" size="1.778" layer="95"/>
-<pinref part="U14" gate="G$1" pin="PD4(XCK/T0)"/>
-</segment>
-</net>
-<net name="D5" class="0">
-<segment>
-<wire x1="269.24" y1="-81.28" x2="274.32" y2="-81.28" width="0.1524" layer="91"/>
-<label x="271.78" y="-81.28" size="1.778" layer="95"/>
-<pinref part="U14" gate="G$1" pin="PD5(T1)"/>
-</segment>
-</net>
 <net name="D6" class="0">
 <segment>
 <wire x1="269.24" y1="-83.82" x2="274.32" y2="-83.82" width="0.1524" layer="91"/>
@@ -18779,6 +18751,11 @@ Source: http://ww1.microchip.com/downloads/en/DeviceDoc/21952a.pdf</description>
 <wire x1="195.58" y1="96.52" x2="190.5" y2="96.52" width="0.1524" layer="91"/>
 <label x="190.5" y="96.52" size="1.778" layer="95" font="vector"/>
 </segment>
+<segment>
+<wire x1="269.24" y1="-73.66" x2="274.32" y2="-73.66" width="0.1524" layer="91"/>
+<label x="271.78" y="-73.66" size="1.778" layer="95"/>
+<pinref part="U14" gate="G$1" pin="PD2(INT0)"/>
+</segment>
 </net>
 <net name="N$28" class="0">
 <segment>
@@ -18819,6 +18796,11 @@ Source: http://ww1.microchip.com/downloads/en/DeviceDoc/21952a.pdf</description>
 <pinref part="R32" gate="G$1" pin="2"/>
 <wire x1="246.38" y1="96.52" x2="241.3" y2="96.52" width="0.1524" layer="91"/>
 <label x="241.3" y="96.52" size="1.778" layer="95" font="vector"/>
+</segment>
+<segment>
+<wire x1="269.24" y1="-76.2" x2="274.32" y2="-76.2" width="0.1524" layer="91"/>
+<label x="271.78" y="-76.2" size="1.778" layer="95"/>
+<pinref part="U14" gate="G$1" pin="PD3(INT1)"/>
 </segment>
 </net>
 <net name="N$54" class="0">
@@ -18871,12 +18853,22 @@ Source: http://ww1.microchip.com/downloads/en/DeviceDoc/21952a.pdf</description>
 <wire x1="297.18" y1="96.52" x2="292.1" y2="96.52" width="0.1524" layer="91"/>
 <label x="292.1" y="96.52" size="1.778" layer="95" font="vector"/>
 </segment>
+<segment>
+<wire x1="269.24" y1="-78.74" x2="274.32" y2="-78.74" width="0.1524" layer="91"/>
+<label x="271.78" y="-78.74" size="1.778" layer="95"/>
+<pinref part="U14" gate="G$1" pin="PD4(XCK/T0)"/>
+</segment>
 </net>
 <net name="D05" class="0">
 <segment>
 <pinref part="R36" gate="G$1" pin="2"/>
 <wire x1="347.98" y1="96.52" x2="342.9" y2="96.52" width="0.1524" layer="91"/>
 <label x="342.9" y="96.52" size="1.778" layer="95" font="vector"/>
+</segment>
+<segment>
+<wire x1="269.24" y1="-81.28" x2="274.32" y2="-81.28" width="0.1524" layer="91"/>
+<label x="271.78" y="-81.28" size="1.778" layer="95"/>
+<pinref part="U14" gate="G$1" pin="PD5(T1)"/>
 </segment>
 </net>
 <net name="N$58" class="0">
