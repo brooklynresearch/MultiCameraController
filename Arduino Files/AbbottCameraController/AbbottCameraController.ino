@@ -20,7 +20,7 @@ byte zeroByte = 0x00;
 /*------------------  CAMERA TIMING --------------------------*/
 /* Adjust this number to configure the 
 timing between cameras triggering */
-int cameraTiming = 50;
+int cameraTiming = 500;
 /*------------------------------------------------------------*/
 
 
@@ -33,8 +33,11 @@ int thresWeightMulti = 1;
 /* Adjust this number if you are noticing jumps not being activated, or
 triggering cameras too early.
 */
-int thresWeightAdd = 40;
+int thresWeightAdd = 100;
 /*------------------------------------------------------------*/
+
+unsigned long takeOffTime = 0;
+unsigned long landingTime = 0;
 
 
 // Analog Input of the load cell
@@ -60,6 +63,7 @@ int ultraSensor4 = A3;
 
 // Switch statement to prepare to start reading the sensor(s)
 boolean readyToJump = false;
+boolean justJumped = false;
 
 // Incase you want to use it.
 byte incomingByte;
@@ -97,9 +101,10 @@ void setup()
 
 void loop()
 {
+  analogRead(loadCellInput);
   if(Serial.available() > 0){
     incomingByte = Serial.read();
-    Serial.println("We've received a byte");
+    Serial.println("Sensor Primed. Ready to Jump");
     readyToJump = true;
     baseLineLoadCell = analogRead(loadCellInput);
   }
@@ -108,15 +113,49 @@ void loop()
   if(readyToJump){
     rawLoadCell = analogRead(loadCellInput);
     Serial.print(baseLineLoadCell);
-    Serial.print(' ');
+    Serial.print(" ");
     Serial.println(rawLoadCell);
     if(rawLoadCell > (thresWeightMulti * baseLineLoadCell) + thresWeightAdd){
+      
+     Serial.print("----------------Takeoff Time: ");
+     takeOffTime = millis();
+     Serial.println(takeOffTime);
+     justJumped = true;
+        
      cameraTrigger();
-     delay(1000);
-     allCamerasOff();
-     delay(1000);
      readyToJump = false;
     }
+  }
+  
+  if(justJumped && !readyToJump){
+    //not currently working because of delays in camera loop
+    Serial.println("Just Jumped");
+    rawLoadCell = analogRead(loadCellInput);
+    Serial.print(baseLineLoadCell);
+    Serial.print(" ");
+    Serial.println(rawLoadCell);
+  }
+  
+ // if(justJumped && rawLoadCell  (thresWeightMulti * baseLineLoadCell) + thresWeightAdd){
+     //not sure if this is the best logic here to detect a landing
+  if(justJumped && rawLoadCell == 800){
+         rawLoadCell = analogRead(loadCellInput);
+         Serial.print("LANDED------------------------------");
+         Serial.print(baseLineLoadCell);
+    Serial.print(" ");
+    Serial.println(rawLoadCell);
+    
+    
+     Serial.print("Landing Time: ");
+    landingTime = millis();
+    Serial.println(landingTime);
+    Serial.print("Time in Air: ");
+    landingTime = millis();
+    Serial.println(landingTime-takeOffTime);
+    
+    justJumped = false;
+    delay(1000);
+    allCamerasOff();
   }
 }
 
@@ -127,9 +166,9 @@ void cameraTrigger()
    if(a == 1){
      continue;
    } else {
-     Wire.beginTransmission(0x20);
-     Wire.write(0x12); // GPIOA
-     Wire.write((int)pow(2,a)); // port A
+     Wire.beginTransmission(32);
+     Wire.write(18); // GPIOA
+     Wire.write((int)pow(2,a)); // port A 0 = 0, 1 = Null/skipped, 2 = 4, 3 = 9, 4 = 16, 5 = 25, 6 = 36, 7 = 49, 8 = 64
      Wire.endTransmission();
      delay(cameraTiming);
    }
@@ -139,13 +178,42 @@ void cameraTrigger()
    if(b == 1){
      continue;
    } else {
-     Wire.beginTransmission(0x20);
-     Wire.write(0x13);
-     Wire.write((int)pow(2,b));
+     Wire.beginTransmission(32);
+     Wire.write(19);
+     Wire.write((int)pow(2,b)); 
      Wire.endTransmission();
      delay(cameraTiming);
    }
   }
+  
+  //-------Experimental backwards traversal
+  //doesnt work for some reason?
+//   for(byte b=4; b >=0; b--)
+// {
+//   if(b == 1){
+//     continue;
+//   } else {
+//     Wire.beginTransmission(32);
+//     Wire.write(19);
+//     Wire.write((int)pow(2,b)); 
+//     Wire.endTransmission();
+//     delay(cameraTiming);
+//   }
+//  }
+//   for (byte a=8; a >=0; a--)
+// {
+//   if(a == 1){
+//     continue;
+//   } else {
+//     Wire.beginTransmission(32);
+//     Wire.write(18); // GPIOA
+//     Wire.write((int)pow(2,a)); // port A 0 = 0, 1 = Null/skipped, 2 = 4, 3 = 9, 4 = 16, 5 = 25, 6 = 36, 7 = 49, 8 = 64
+//     Wire.endTransmission();
+//     delay(cameraTiming);
+//   }
+// }
+ 
+ 
 }
 
 void allCamerasOff()
