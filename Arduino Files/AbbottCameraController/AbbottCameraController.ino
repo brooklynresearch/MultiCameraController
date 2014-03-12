@@ -103,10 +103,13 @@ void loop()
     readyToJump = true;
     baseLineLoadCell = analogRead(loadCellInput);
   }
+  //Serial.println(analogRead(loadCellInput));
   
   if(readyToJump){
     rawLoadCell = analogRead(loadCellInput);
-//    Serial.println(analogRead(loadCellInput));
+    Serial.print(baseLineLoadCell);
+    Serial.print(' ');
+    Serial.println(rawLoadCell);
     if(rawLoadCell > (thresWeightMulti * baseLineLoadCell) + thresWeightAdd){
      cameraTrigger();
      delay(1000);
@@ -126,7 +129,7 @@ void cameraTrigger()
    } else {
      Wire.beginTransmission(0x20);
      Wire.write(0x12); // GPIOA
-     Wire.write(pow(2,a)); // port A
+     Wire.write((int)pow(2,a)); // port A
      Wire.endTransmission();
      delay(cameraTiming);
    }
@@ -138,7 +141,7 @@ void cameraTrigger()
    } else {
      Wire.beginTransmission(0x20);
      Wire.write(0x13);
-     Wire.write(pow(2,b));
+     Wire.write((int)pow(2,b));
      Wire.endTransmission();
      delay(cameraTiming);
    }
