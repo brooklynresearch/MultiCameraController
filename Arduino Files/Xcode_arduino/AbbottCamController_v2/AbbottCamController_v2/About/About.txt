@@ -1,0 +1,15 @@
+ 	
+	embedXcode
+	embedXcode+
+	----------------------------------
+	Embedded Computing on Xcode
+	
+	
+	© Rei VILO, 2010-2014
+	All rights reserved	
+	http://embedXcode.weebly.com/
+	
+	
+embedXcode  • Mar 12, 2014 release 140 • Maintenance fix for Teensy 3.1
+embedXcode+ • Mar 12, 2014 release 139 • Stability improvement for Arduino Leonardo
+	
