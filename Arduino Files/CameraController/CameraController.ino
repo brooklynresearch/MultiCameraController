@@ -1,5 +1,5 @@
 /* 
-Abbott Camera Controller
+Camera Controller
 
 Initial Code to trigger twelve cameras in sequence just before a user is
 about to jump.  Currently the code using just a load cell sensor to sense or
